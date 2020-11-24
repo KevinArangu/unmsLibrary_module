@@ -1,0 +1,11 @@
+{
+  "name": "module-unmslibrary",
+  "version": "1.0.0",
+  "description": "UnmsLibrary.js",
+  "main": "unmsLibrary.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Arangu",
+  "license": "ISC"
+}
