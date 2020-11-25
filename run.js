@@ -69,10 +69,39 @@ const mainProcess = async ()=> {
         organizationZipCode: "3001",
         quoteTemplateId: 1000,
     }
-
+    let ticket = {
+        subject: "The Internet is not working",
+        clientId: 13562,
+        emailFromAddress: "john.doe@example.com",
+        emailFromName: "John Doe",
+        assignedGroupId: null,
+        assignedUserId: null,
+        createdAt: "2016-09-12T00:00:00+0000",
+        status: 0,
+        public: false,
+        assignedJobIds: [],
+        activity: [
+          {
+            userId: 35,
+            createdAt: "2016-09-12T00:00:00+0000",
+            public: true,
+            comment: {
+              body: "When I tried to turn on my PC, I see blue screen only.",
+              attachments: [
+                {
+                  file: "``",
+                  filename: "foto.jpg"
+                }
+              ],
+              emailFromAddress: "john.doe@example.com",
+              emailFromName: "John Doe"
+            }
+          }
+        ]
+      }
     //unms.createClient(cliente);
 
-    const status = await unms.getQuotes(2, 41);
+    const status = await unms.getTickets();
     console.log(status);
 
 }; 
