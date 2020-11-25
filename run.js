@@ -71,38 +71,37 @@ const mainProcess = async ()=> {
     }
     let ticket = {
         subject: "The Internet is not working",
-        clientId: 13562,
-        emailFromAddress: "john.doe@example.com",
-        emailFromName: "John Doe",
+        clientId: 13561,
+        emailFromAddress: null,
+        emailFromName: null,
         assignedGroupId: null,
         assignedUserId: null,
-        createdAt: "2016-09-12T00:00:00+0000",
         status: 0,
-        public: false,
+        public: true,
         assignedJobIds: [],
         activity: [
           {
-            userId: 35,
-            createdAt: "2016-09-12T00:00:00+0000",
+            userId: 1002,
             public: true,
             comment: {
               body: "When I tried to turn on my PC, I see blue screen only.",
-              attachments: [
-                {
-                  file: "``",
-                  filename: "foto.jpg"
-                }
-              ],
-              emailFromAddress: "john.doe@example.com",
-              emailFromName: "John Doe"
             }
           }
         ]
-      }
+    }
     //unms.createClient(cliente);
 
-    const status = await unms.getTickets();
+/*
+    const status = await unms.getTickets()
     console.log(status);
+    console.log("----------------------");
+    console.log(status[0].activity);
+*/
+
+    const status = await unms.createTicket(ticket);
+    const status2 = await unms.getTickets()
+    console.log(status);
+    console.log(status2);
 
 }; 
 mainProcess();

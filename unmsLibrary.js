@@ -44,7 +44,7 @@ const getClients = async (id=null) => {
         }
     }
 };
-const getQuotes = async (option = null, id = null)=> { //OPTIONS: 1 - clientId    2 - quoteId
+const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId
     switch(option){ 
         case null: {
             const response = await fetch(url+pathQuotes, get);
@@ -98,8 +98,18 @@ const createQuote = async (id, body) => {
         console.log("catch: \n" + error);
         return response.status + " " + response.statusText;
     }
-}
-
+};
+const createTicket = async (body) => {
+    try {
+        post.body = JSON.stringify(body);
+        const response = await fetch(url+pathTickets, post);
+        post.body = {};
+        return response.status + " " + response.statusText;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+};
 // EXPORTAMOS LOS MODULOS //
 module.exports = {
     getClients: getClients,
@@ -108,4 +118,5 @@ module.exports = {
     getTickets: getTickets,
     createClient: createClient,
     createQuote: createQuote,
+    createTicket: createTicket,
 };
