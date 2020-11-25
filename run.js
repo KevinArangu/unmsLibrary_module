@@ -72,7 +72,7 @@ const mainProcess = async ()=> {
 
     //unms.createClient(cliente);
 
-    const status = await unms.createQuote(13595, quote);
+    const status = await unms.getQuotes(2, 41);
     console.log(status);
 
 }; 

@@ -1,5 +1,4 @@
 //Libreria desarrollada por: Kevin Arangu
-
 require('isomorphic-fetch');
 
 //CONSTANTES 
@@ -45,8 +44,8 @@ const getClients = async (id=null) => {
         }
     }
 };
-const getQuotes = async (type = null, id = null)=> { //1: clientId    2:quoteId
-    switch(type){ 
+const getQuotes = async (option = null, id = null)=> { //OPTIONS: 1 - clientId    2 - quoteId
+    switch(option){ 
         case null: {
             const response = await fetch(url+pathQuotes, get);
             return response.json();
