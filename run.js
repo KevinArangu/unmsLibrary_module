@@ -1,4 +1,4 @@
-const { createClient } = require('./unmsLibrary');
+const { createClient, getUsers, getVtiger, getCustomAttrb, getClients } = require('./unmsLibrary');
 const unms = require('./unmsLibrary');
 
 const mainProcess = async ()=> {
@@ -89,6 +89,12 @@ const mainProcess = async ()=> {
           }
         ]
     }
+    let test = {
+        source: "172.20.1.5",
+        target: "172.20.1.6",
+        duration: 5,
+        direction: "uplink"
+    }
     //unms.createClient(cliente);
 
 /*
@@ -97,11 +103,19 @@ const mainProcess = async ()=> {
     console.log("----------------------");
     console.log(status[0].activity);
 */
-
+/*
     const status = await unms.createTicket(ticket);
     const status2 = await unms.getTickets()
     console.log(status);
     console.log(status2);
+*/
+
+    
+const client = await getVtiger("47");
+console.log(client);
+
+//const custom = await getClients(13603);
+//console.log(custom);
 
 }; 
 mainProcess();

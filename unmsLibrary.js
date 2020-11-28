@@ -7,6 +7,10 @@ const pathClients = "crm/api/v1.0/clients";
 const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
+const pathUsers = "nms/api/v2.1/users";
+const pathSpeed = "nms/api/v2.1/speed-tests/start";
+const pathCustomId = "api/v1.0/custom-attributes/";
+const pathCustom = "api/v1.0/custom-attributes?attributeType=client"
 const get = {
     method: 'GET', 
     headers: {
@@ -74,6 +78,26 @@ const getProducts = async () => {
 const getTickets = async () => {
     const response = await fetch(url+pathTickets, get);
     return response.json();
+};
+const getUsers = async () => {
+    const response = await fetch(url+pathUsers, get);
+    return response.json();
+};
+const getVtiger = async (id) => {
+    const array = [];
+    const clients = await getClients();
+    clients.forEach(element => {
+        element.attributes.forEach(item => {
+            if(item.customAttributeId === 14 && item.value === id){
+                array.push(item);
+            }
+        });
+    });
+    return array;
+};
+const getCustomAttrb = async () => {
+    const response = await fetch(url+pathCustom, get);
+    return response.json();
 }
 
 //CREATE
@@ -111,13 +135,31 @@ const createTicket = async (body) => {
     }
 };
 
+//OTHERS
+const speedTest = async (body) => {
+    try {
+        post.body = JSON.stringify(body);
+        const response = await fetch(url+pathSpeed, post);
+        post.body = {};
+        return response;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+}; //REVISAR****
+
 // EXPORTAMOS LOS MODULOS //
 module.exports = {
     getClients: getClients,
     getQuotes: getQuotes,
     getProducts: getProducts,
     getTickets: getTickets,
+    getUsers: getUsers,
+    getVtiger: getVtiger,
+    getCustomAttrb:getCustomAttrb,
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,
+    speedTest: speedTest,
+
 };
