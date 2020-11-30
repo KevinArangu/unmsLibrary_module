@@ -34,6 +34,13 @@ const patch = {
         'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
     }
 };
+const del = {
+    method: 'DELETE',
+    headers:{
+        'Content-Type':'application/json',
+        'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
+    }
+};
 
 // FUNCIONES //
 
@@ -163,6 +170,11 @@ const patchClient = async (client) => {
     }
 }
 
+//DELETE
+const deleteClient = async (id) => {
+
+}
+
 //OTHERS
 const speedTest = async (body) => {
     try {
@@ -190,4 +202,6 @@ module.exports = {
     createTicket: createTicket,
     speedTest: speedTest,
     patchClient: patchClient,
+    deleteClient: deleteClient,
+
 };
