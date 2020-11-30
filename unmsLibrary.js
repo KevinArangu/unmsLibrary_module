@@ -26,6 +26,14 @@ const post = {
         'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
     }
 };
+const patch = {
+    method: 'PATCH',
+    body: {},
+    headers:{
+        'Content-Type':'application/json',
+        'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
+    }
+};
 
 // FUNCIONES //
 
@@ -113,7 +121,7 @@ const createClient = async (client) => {
         post.body = JSON.stringify(client);
         const response = await fetch(url+pathClients, post);
         post.body = {};
-        return response.status + " " + response.statusText;
+        return response.status;
     } catch (error) {
         console.log("catch: \n" + error);
         return error;
@@ -124,10 +132,10 @@ const createQuote = async (id, body) => {
         post.body = JSON.stringify(body);
         const response = await fetch(url+pathClients+"/"+id+"/quotes", post);
         post.body = {};
-        return response.status + " " + response.statusText;
+        return response.status;
     } catch (error) {
         console.log("catch: \n" + error);
-        return response.status + " " + response.statusText;
+        return error;
     }
 };
 const createTicket = async (body) => {
@@ -135,12 +143,25 @@ const createTicket = async (body) => {
         post.body = JSON.stringify(body);
         const response = await fetch(url+pathTickets, post);
         post.body = {};
-        return response.status + " " + response.statusText;
+        return response.status;
     } catch (error) {
         console.log("catch: \n" + error);
         return error;
     }
 };
+
+//PATCH
+const patchClient = async (client) => {
+    try {
+        patch.body = JSON.stringify(client);
+        const response = await fetch(url+pathClients, patch);
+        post.body = {};
+        return response.status;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+}
 
 //OTHERS
 const speedTest = async (body) => {
@@ -168,5 +189,5 @@ module.exports = {
     createQuote: createQuote,
     createTicket: createTicket,
     speedTest: speedTest,
-
+    patchClient: patchClient,
 };

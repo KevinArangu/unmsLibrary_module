@@ -4,7 +4,7 @@ const unms = require('./unmsLibrary');
 const mainProcess = async ()=> {
     
     let cliente = {
-        "userIdent": '25814979',
+        "userIdent": '25814978',
         "previousIsp": "CANTV",
         "isLead": false,
         "clientType": 1,
@@ -101,7 +101,7 @@ const mainProcess = async ()=> {
         duration: 5,
         direction: "uplink"
     }
-    const clientTest = await unms.createClient(cliente);
+    const clientTest = await unms.patchClient(cliente);
     console.log(clientTest);
 /*
     const status = await unms.getTickets()
