@@ -4,6 +4,7 @@ const unms = require('./unmsLibrary');
 const mainProcess = async ()=> {
     
     let cliente = {
+        "userIdent": '25814979',
         "previousIsp": "CANTV",
         "isLead": false,
         "clientType": 1,
@@ -19,13 +20,18 @@ const mainProcess = async ()=> {
         //"addressGpsLat": 37.3832548351597,
         //"addressGpsLon": -121.931131237113,
         "contacts": [{
-            //"id": 25814979,
             "email": "victor@example.com",
             "phone": "",
             "name": "",
             "isBilling": false,
             "isContact": false
-        }]
+        }],
+        "attributes": [
+            {
+              "customAttributeId": 14,
+              "value": '25814979',
+            }
+        ]
     }
     let quote ={
         adminNotes: null,
@@ -95,8 +101,8 @@ const mainProcess = async ()=> {
         duration: 5,
         direction: "uplink"
     }
-    //unms.createClient(cliente);
-
+    const clientTest = await unms.createClient(cliente);
+    console.log(clientTest);
 /*
     const status = await unms.getTickets()
     console.log(status);
@@ -112,10 +118,10 @@ const mainProcess = async ()=> {
 //Crear clients con id y editarlos
 // crear clientes con vtigerid
 
-const client = await getVtiger("47");
-console.log(client);
+//const client = await getVtiger("25814979");
+//console.log(client);
 
-//const custom = await getClients(13603);
+//const custom = await getClients(13687);
 //console.log(custom);
 
 }; 

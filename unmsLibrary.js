@@ -116,7 +116,7 @@ const createClient = async (client) => {
         return response.status + " " + response.statusText;
     } catch (error) {
         console.log("catch: \n" + error);
-        return response.status + " " + response.statusText;
+        return error;
     }
 };
 const createQuote = async (id, body) => {
