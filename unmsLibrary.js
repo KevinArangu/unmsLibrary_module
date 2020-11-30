@@ -93,13 +93,20 @@ const getVtiger = async (id) => {
             }
         });
     });
+    /*
+    if(array != ""){
+        const find = await getClients(array[0].clientId);
+        array.pop();
+        array.push(find);
+    }
+    */
     return array;
 };
 const getCustomAttrb = async () => {
     const response = await fetch(url+pathCustom, get);
     return response.json();
 }
-//Crear clients con id y editarlos
+
 //CREATE
 const createClient = async (client) => {
     try {

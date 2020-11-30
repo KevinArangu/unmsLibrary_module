@@ -5,7 +5,7 @@ const mainProcess = async ()=> {
     
     let cliente = {
         "previousIsp": "CANTV",
-        "isLead": true,
+        "isLead": false,
         "clientType": 1,
         "firstName": "Victoria",
         "lastName": "Aranguren",
@@ -109,8 +109,9 @@ const mainProcess = async ()=> {
     console.log(status);
     console.log(status2);
 */
+//Crear clients con id y editarlos
+// crear clientes con vtigerid
 
-    
 const client = await getVtiger("47");
 console.log(client);
 
