@@ -100,7 +100,7 @@ const getUserIdent = async (id) => {
 const getVtigerId = async (value) => {
     const response = await fetch(url+pathVtigerValue+value, get);
      return response.json();
- };
+};
 
 //CREATE
 const createClient = async (client) => {
