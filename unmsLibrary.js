@@ -9,8 +9,7 @@ const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
 const pathUsers = "nms/api/v2.1/users";
 const pathSpeed = "nms/api/v2.1/speed-tests/start";
-const pathCustomId = "api/v1.0/custom-attributes/";
-const pathCustom = "api/v1.0/custom-attributes?attributeType=client"
+const pathUserIdent = "api/v1.0/clients?userIdent=";
 const get = {
     method: 'GET', 
     headers: {
@@ -99,28 +98,10 @@ const getUsers = async () => {
     return response.json();
 };
 const getVtiger = async (id) => {
-    const array = [];
-    const clients = await getClients();
-    clients.forEach(element => {
-        element.attributes.forEach(item => {
-            if(item.customAttributeId === 14 && item.value === id){
-                array.push(item);
-            }
-        });
-    });
-    /*
-    if(array != ""){
-        const find = await getClients(array[0].clientId);
-        array.pop();
-        array.push(find);
-    }
-    */
-    return array;
-};
-const getCustomAttrb = async () => {
-    const response = await fetch(url+pathCustom, get);
+   const response = await fetch(url+pathUserIdent+id, get);
+   console.log(url+pathUserIdent+id);
     return response.json();
-}
+};
 
 //CREATE
 const createClient = async (client) => {
@@ -196,7 +177,6 @@ module.exports = {
     getTickets: getTickets,
     getUsers: getUsers,
     getVtiger: getVtiger,
-    getCustomAttrb:getCustomAttrb,
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,

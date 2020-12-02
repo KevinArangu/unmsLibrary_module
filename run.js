@@ -29,7 +29,7 @@ const mainProcess = async ()=> {
         "attributes": [
             {
               "customAttributeId": 14,
-              "value": '25814979',
+              "value": '8989',
             }
         ]
     }
@@ -101,7 +101,8 @@ const mainProcess = async ()=> {
         duration: 5,
         direction: "uplink"
     }
-    const clientTest = await unms.patchClient(cliente);
+
+    const clientTest = await unms.getVtiger(25814979);
     console.log(clientTest);
 /*
     const status = await unms.getTickets()
