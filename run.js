@@ -102,7 +102,7 @@ const mainProcess = async ()=> {
         direction: "uplink"
     }
 
-    const clientTest = await unms.getVtigerId();
+    const clientTest = await unms.getVtigerId(14);
     console.log(clientTest);
     //key: idvtiger
 /*

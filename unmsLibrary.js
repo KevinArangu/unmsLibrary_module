@@ -1,48 +1,53 @@
 //Libreria desarrollada por: Kevin Arangu
 require('isomorphic-fetch');
 
-//CONSTANTES 
+
+
+//FOR API CONECTION
 const url = "https://mi.intercomservicios.com/";//"https://192.168.0.8/";
+const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
+
+//CONSTANT (PATHS)
 const pathClients = "crm/api/v1.0/clients";
 const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
-const pathSpeed = "nms/api/v2.1/speed-tests/start";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
 const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
+
+//METHODS
 const get = {
     method: 'GET', 
     headers: {
-      'Content-Type':'application/json',
-      'x-auth-token':'85ccde42-3fcc-431c-b8e4-e4cb0de056a8'
+        'Content-Type':'application/json',
+        'x-auth-token': apiToken
     }
 };
 const post = {
     method: 'POST',
     body: {},
-    headers:{
+    headers: {
         'Content-Type':'application/json',
-        'x-auth-token':'85ccde42-3fcc-431c-b8e4-e4cb0de056a8'
+        'x-auth-token': apiToken
     }
 };
 const patch = {
     method: 'PATCH',
     body: {},
-    headers:{
+    headers: {
         'Content-Type':'application/json',
-        'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
+        'x-auth-token': apiToken
     }
 };
 const del = {
     method: 'DELETE',
-    headers:{
+    headers: {
         'Content-Type':'application/json',
-        'x-auth-token':'85ccde42-3fcc-431c-b8e4-e4cb0de056a8'
+        'x-auth-token': apiToken
     }
 };
 
-// FUNCIONES //
-
+// FUNCTIONS //
 //GET
 const getClients = async (id=null) => {
     if(id === null){
@@ -155,19 +160,6 @@ const deleteClient = async (id) => {
 
 }
 
-//OTHERS
-const speedTest = async (body) => {
-    try {
-        post.body = JSON.stringify(body);
-        const response = await fetch(url+pathSpeed, post);
-        post.body = {};
-        return response;
-    } catch (error) {
-        console.log("catch: \n" + error);
-        return error;
-    }
-}; //REVISAR****
-
 // EXPORTAMOS LOS MODULOS //
 module.exports = {
     getClients: getClients,
@@ -179,7 +171,6 @@ module.exports = {
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,
-    speedTest: speedTest,
     patchClient: patchClient,
     deleteClient: deleteClient,
     
