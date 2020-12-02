@@ -93,10 +93,6 @@ const getTickets = async () => {
     const response = await fetch(url+pathTickets, get);
     return response.json();
 };
-const getUsers = async () => {
-    const response = await fetch(url+pathUsers, get);
-    return response.json();
-};
 const getVtiger = async (id) => {
    const response = await fetch(url+pathUserIdent+id, get);
    console.log(url+pathUserIdent+id);
@@ -175,7 +171,6 @@ module.exports = {
     getQuotes: getQuotes,
     getProducts: getProducts,
     getTickets: getTickets,
-    getUsers: getUsers,
     getVtiger: getVtiger,
     createClient: createClient,
     createQuote: createQuote,
