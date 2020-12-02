@@ -102,7 +102,7 @@ const mainProcess = async ()=> {
         direction: "uplink"
     }
 
-    const clientTest = await unms.getVtiger(25814979);
+    const clientTest = await unms.getUserIdent(25814979);
     console.log(clientTest);
 /*
     const status = await unms.getTickets()
