@@ -7,7 +7,6 @@ const pathClients = "crm/api/v1.0/clients";
 const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
-const pathUsers = "nms/api/v2.1/users";
 const pathSpeed = "nms/api/v2.1/speed-tests/start";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
 const get = {
