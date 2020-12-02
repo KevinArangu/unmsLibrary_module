@@ -9,6 +9,7 @@ const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
 const pathSpeed = "nms/api/v2.1/speed-tests/start";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
+const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
 const get = {
     method: 'GET', 
     headers: {
@@ -96,6 +97,10 @@ const getUserIdent = async (id) => {
    const response = await fetch(url+pathUserIdent+id, get);
     return response.json();
 };
+const getVtigerId = async (value) => {
+    const response = await fetch(url+pathVtigerValue+value, get);
+     return response.json();
+ };
 
 //CREATE
 const createClient = async (client) => {
@@ -170,11 +175,12 @@ module.exports = {
     getProducts: getProducts,
     getTickets: getTickets,
     getUserIdent: getUserIdent,
+    getVtigerId: getVtigerId,
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,
     speedTest: speedTest,
     patchClient: patchClient,
     deleteClient: deleteClient,
-
+    
 };
