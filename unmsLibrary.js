@@ -15,7 +15,7 @@ const get = {
     method: 'GET', 
     headers: {
       'Content-Type':'application/json',
-      'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
+      'x-auth-token':'85ccde42-3fcc-431c-b8e4-e4cb0de056a8'
     }
 };
 const post = {
@@ -23,7 +23,7 @@ const post = {
     body: {},
     headers:{
         'Content-Type':'application/json',
-        'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
+        'x-auth-token':'85ccde42-3fcc-431c-b8e4-e4cb0de056a8'
     }
 };
 const patch = {
@@ -38,7 +38,7 @@ const del = {
     method: 'DELETE',
     headers:{
         'Content-Type':'application/json',
-        'x-auth-token':'a7c02df1-18c4-47ca-88ca-4e62203d7abe'
+        'x-auth-token':'85ccde42-3fcc-431c-b8e4-e4cb0de056a8'
     }
 };
 
