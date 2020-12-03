@@ -1,8 +1,6 @@
 //Libreria desarrollada por: Kevin Arangu
 require('isomorphic-fetch');
 
-
-
 //FOR API CONECTION
 const url = "https://mi.intercomservicios.com/";//"https://192.168.0.8/";
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
@@ -14,7 +12,9 @@ const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
 const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
-const PatchDeleteClient = "api/v1.0/clients/"
+const PatchDeleteClient = "api/v1.0/clients/";
+const patchTag = "/clients/id/add-tag/tagId";
+const deleteTag = "/clients/id/remove-tag/tagId";
 
 //METHODS
 const get = {
@@ -155,7 +155,40 @@ const patchClient = async (id, client) => {
         return error;
     }
 }
-
+const addTag = async (idClient, tagId) => {
+    try {
+        const response = await fetch(url+"api/v1.0/clients/"+idClient+"/add-tag/"+tagId, 
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type':'application/json',
+                    'x-auth-token': apiToken
+                }
+            }
+        );
+        return response;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+}
+const removeTag = async (idClient, tagId) => {
+    try {
+        const response = await fetch(url+"api/v1.0/clients/"+idClient+"/remove-tag/"+tagId, 
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type':'application/json',
+                    'x-auth-token': apiToken
+                }
+            }
+        );
+        return response;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+}
 //DELETE
 const deleteClient = async (id) => {
     try {
@@ -179,6 +212,8 @@ module.exports = {
     createQuote: createQuote,
     createTicket: createTicket,
     patchClient: patchClient,
+    addTag: addTag,
+    removeTag: removeTag,
     deleteClient: deleteClient,
     
 };
