@@ -145,6 +145,18 @@ const createTicket = async (body) => {
         return error;
     }
 };
+const addService = async (clientId, body) => { //COMPLETAR Y REVISAR
+    //api/v1.0/clients/id/services
+    try {
+        post.body = JSON.stringify(body);
+        const response = await fetch(url+pathClients+"/"+clientId+"/services", post);
+        post.body = {};
+        return response.status;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+}
 
 //PATCH
 const updateClient = async (id, client) => {
@@ -216,6 +228,7 @@ module.exports = {
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,
+
     updateClient: updateClient,
     addTag: addTag,
     removeTag: removeTag,

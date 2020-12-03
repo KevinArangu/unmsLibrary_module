@@ -37,7 +37,7 @@ const mainProcess = async ()=> {
             }
         ],
     }
-    let quote ={
+    let quote = {
         adminNotes: null,
         clientCity: null,
         clientCompanyName: null,
@@ -98,6 +98,10 @@ const mainProcess = async ()=> {
             }
           }
         ]
+    }
+    let service = {
+        "servicePlanId": 3,
+        "servicePlanPeriodId": 11,
     }
 
     //const plans = await getServicePlan(17);
