@@ -1,4 +1,4 @@
-const { createClient, getUsers, getVtiger, getCustomAttrb, getClients } = require('./unmsLibrary');
+const { createClient, getUsers, getVtiger, getCustomAttrb, getClients, deleteClient } = require('./unmsLibrary');
 const unms = require('./unmsLibrary');
 
 const mainProcess = async ()=> {
@@ -8,8 +8,8 @@ const mainProcess = async ()=> {
         "previousIsp": "CANTV",
         "isLead": false,
         "clientType": 1,
-        "firstName": "Victoria",
-        "lastName": "Aranguren",
+        "firstName": "Kevin",
+        "lastName": "Arangu",
         "street1": "intercomunal cabudare",
         "street2": "las mercedes",
         "city": "cabudare",
@@ -20,16 +20,16 @@ const mainProcess = async ()=> {
         //"addressGpsLat": 37.3832548351597,
         //"addressGpsLon": -121.931131237113,
         "contacts": [{
-            "email": "victor@example.com",
-            "phone": "",
-            "name": "",
+            "email": "karangu@intercomservicios.com",
+            "phone": "04149513409",
+            "name": "Kevin Arangu",
             "isBilling": false,
             "isContact": false
         }],
         "attributes": [
             {
               "customAttributeId": 14,
-              "value": '8989',
+              "value": '14',
             }
         ]
     }
@@ -102,9 +102,12 @@ const mainProcess = async ()=> {
         direction: "uplink"
     }
 
-    const clientTest = await unms.getVtigerId(14);
-    console.log(clientTest);
-    //key: idvtiger
+    //const clientTest = await unms.patchClient(13768, cliente);
+    //console.log(clientTest);
+
+    const deleteStatus = await unms.deleteClient(13771);
+    console.log(deleteStatus);
+
 /*
     const status = await unms.getTickets()
     console.log(status);

@@ -14,6 +14,7 @@ const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
 const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
+const PatchDeleteClient = "api/v1.0/clients/"
 
 //METHODS
 const get = {
@@ -143,10 +144,10 @@ const createTicket = async (body) => {
 };
 
 //PATCH
-const patchClient = async (client) => {
+const patchClient = async (id, client) => {
     try {
         patch.body = JSON.stringify(client);
-        const response = await fetch(url+pathClients, patch);
+        const response = await fetch(url+PatchDeleteClient+id, patch);
         post.body = {};
         return response.status;
     } catch (error) {
@@ -157,7 +158,13 @@ const patchClient = async (client) => {
 
 //DELETE
 const deleteClient = async (id) => {
-
+    try {
+        const response = await fetch(url+PatchDeleteClient+id, del);
+        return response.status;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
 }
 
 // EXPORTAMOS LOS MODULOS //
