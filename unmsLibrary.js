@@ -11,10 +11,9 @@ const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "crm/api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
+const pathServicePlan = "api/v1.0/service-plans"
 const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
 const PatchDeleteClient = "api/v1.0/clients/";
-const patchTag = "/clients/id/add-tag/tagId";
-const deleteTag = "/clients/id/remove-tag/tagId";
 
 //METHODS
 const get = {
@@ -105,10 +104,14 @@ const getUserIdent = async (id) => {
 };
 const getVtigerId = async (value) => {
     const response = await fetch(url+pathVtigerValue+value, get);
-     return response.json();
+    return response.json();
 };
+const getServicePlan = async () => {
+    const response = await fetch(url+pathServicePlan, get);
+    return response.json();
+}
 
-//CREATE
+//POST
 const createClient = async (client) => {
     try {
         post.body = JSON.stringify(client);
@@ -144,7 +147,7 @@ const createTicket = async (body) => {
 };
 
 //PATCH
-const patchClient = async (id, client) => {
+const updateClient = async (id, client) => {
     try {
         patch.body = JSON.stringify(client);
         const response = await fetch(url+PatchDeleteClient+id, patch);
@@ -189,6 +192,7 @@ const removeTag = async (idClient, tagId) => {
         return error;
     }
 }
+
 //DELETE
 const deleteClient = async (id) => {
     try {
@@ -208,10 +212,11 @@ module.exports = {
     getTickets: getTickets,
     getUserIdent: getUserIdent,
     getVtigerId: getVtigerId,
+    getServicePlan: getServicePlan,
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,
-    patchClient: patchClient,
+    updateClient: updateClient,
     addTag: addTag,
     removeTag: removeTag,
     deleteClient: deleteClient,

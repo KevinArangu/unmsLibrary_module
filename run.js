@@ -1,4 +1,4 @@
-const { createClient, getUsers, getVtiger, getCustomAttrb, getClients, deleteClient } = require('./unmsLibrary');
+const { createClient, getUsers, getVtiger, getCustomAttrb, getClients, deleteClient, getServicePlan } = require('./unmsLibrary');
 const unms = require('./unmsLibrary');
 
 const mainProcess = async ()=> {
@@ -100,11 +100,16 @@ const mainProcess = async ()=> {
         ]
     }
 
+    //const plans = await getServicePlan(17);
+    //console.log(plans);
+
     //const update = await unms.addTag(13768, 1);
     //console.log(update);
   
-    const update = await unms.removeTag(13768, 1);
-    console.log(update);
+    //const update = await unms.removeTag(13768, 1);
+    //console.log(update);
 
+    //const update = await unms.updateClient(13768, cliente);
+    //console.log(update);
 }; 
 mainProcess();
