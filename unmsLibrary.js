@@ -13,6 +13,7 @@ const pathTickets = "api/v1.0/ticketing/tickets";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
 const pathServicePlan = "api/v1.0/service-plans"
 const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
+const pathServices = "api/v1.0/clients/services";
 const PatchDeleteClient = "api/v1.0/clients/";
 
 //METHODS
@@ -110,6 +111,10 @@ const getServicePlan = async () => {
     const response = await fetch(url+pathServicePlan, get);
     return response.json();
 }
+const getServices = async () => {
+    const response = await fetch(url+pathServices, get);
+    return response.json();
+}
 
 //POST
 const createClient = async (client) => {
@@ -146,10 +151,9 @@ const createTicket = async (body) => {
     }
 };
 const addService = async (clientId, body) => { //COMPLETAR Y REVISAR
-    //api/v1.0/clients/id/services
     try {
         post.body = JSON.stringify(body);
-        const response = await fetch(url+pathClients+"/"+clientId+"/services", post);
+        const response = await fetch(url+"api/v1.0/clients/"+clientId+"/services", post);
         post.body = {};
         return response.status;
     } catch (error) {
@@ -225,10 +229,11 @@ module.exports = {
     getUserIdent: getUserIdent,
     getVtigerId: getVtigerId,
     getServicePlan: getServicePlan,
+    getServices: getServices,
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,
-
+    addService: addService,
     updateClient: updateClient,
     addTag: addTag,
     removeTag: removeTag,

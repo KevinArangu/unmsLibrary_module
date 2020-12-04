@@ -1,7 +1,7 @@
-const { createClient, getUsers, getVtiger, getCustomAttrb, getClients, deleteClient, getServicePlan } = require('./unmsLibrary');
+const { createClient, getClients, deleteClient, getServicePlan } = require('./unmsLibrary');
 const unms = require('./unmsLibrary');
 
-const mainProcess = async ()=> {
+const mainProcess = async () => {
     
     let cliente = {
         userIdent: '25814978',
@@ -99,13 +99,54 @@ const mainProcess = async ()=> {
           }
         ]
     }
+
+    // const plans = await unms.getServices();
+    // console.log(plans);
+
     let service = {
-        "servicePlanId": 3,
-        "servicePlanPeriodId": 11,
+        "servicePlanPeriodId": 97,
     }
 
-    //const plans = await getServicePlan(17);
-    //console.log(plans);
+    const clientService = await unms.addService(13772, service)
+    console.log(clientService);
+
+    // let clientePrueba = {
+    //     userIdent: '1313',
+    //     previousIsp: null,
+    //     isLead: false,
+    //     clientType: 1,
+    //     street1: null,
+    //     street2: null,
+    //     city: null,
+    //     zipCode: null,
+    //     fullAddress: null,
+    //     invoiceAddressSameAsContact: true,
+    //     note: null,
+    //     organizationId: 1,
+    //     firstName: 'Prueba',
+    //     lastName: 'Cliente',
+    //     contacts: [
+    //       {
+    //         email: null,
+    //         phone: null,
+    //         name: null,
+    //         isBilling: true,
+    //         isContact: true,
+    //       }
+    //     ],
+    //     attributes: [
+    //       {
+    //         customAttributeId: 14,
+    //         value: '1313',
+    //       }
+    //     ],
+    //   }
+
+    // const prueba = await unms.updateClient(13772, clientePrueba)
+    // console.log(prueba);
+
+    //const clientService = await unms.getClients(13772)
+    //console.log(clientService);
 
     //const update = await unms.addTag(13768, 1);
     //console.log(update);
@@ -113,7 +154,5 @@ const mainProcess = async ()=> {
     //const update = await unms.removeTag(13768, 1);
     //console.log(update);
 
-    //const update = await unms.updateClient(13768, cliente);
-    //console.log(update);
 }; 
 mainProcess();
