@@ -8,7 +8,7 @@ const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 //CONSTANT (PATHS)
 const pathClients = "crm/api/v1.0/clients";
 const pathQuotes = "crm/api/v1.0/quotes";
-const pathProducts = "crm/api/v1.0/products";
+const pathProducts = "api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
 const pathUserIdent = "api/v1.0/clients?userIdent=";
 const pathServicePlan = "api/v1.0/service-plans"
@@ -150,6 +150,17 @@ const createTicket = async (body) => {
         return error;
     }
 };
+const createProduct = async (body) => {
+    try {
+        post.body = JSON.stringify(body);
+        const response = await fetch(url+pathProducts, post);
+        post.body = {};
+        return response.status;
+    } catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+};
 const addService = async (clientId, body) => { //COMPLETAR Y REVISAR
     try {
         post.body = JSON.stringify(body);
@@ -160,7 +171,7 @@ const addService = async (clientId, body) => { //COMPLETAR Y REVISAR
         console.log("catch: \n" + error);
         return error;
     }
-}
+};
 
 //PATCH
 const updateClient = async (id, client) => {
@@ -233,6 +244,7 @@ module.exports = {
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,
+    createProduct: createProduct,
     addService: addService,
     updateClient: updateClient,
     addTag: addTag,

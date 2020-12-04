@@ -99,16 +99,30 @@ const mainProcess = async () => {
           }
         ]
     }
+    let service = {
+        "servicePlanPeriodId": 97,
+    }
+    let product = {
+        "name": "UTP cable",
+        "invoiceLabel": "UTP cable",
+        "price": 10,
+        "unit": "m",
+        "taxable": false
+    }
+
+
+    const products = await unms.createProduct(product);
+    console.log(products);
+
+    // const products = await unms.getProducts();
+    // console.log(products);
+
+    // const clientService = await unms.addService(13777, service)
+    // console.log(clientService);
 
     // const plans = await unms.getServices();
     // console.log(plans);
 
-    let service = {
-        "servicePlanPeriodId": 97,
-    }
-
-    const clientService = await unms.addService(13772, service)
-    console.log(clientService);
 
     // let clientePrueba = {
     //     userIdent: '1313',
@@ -142,7 +156,7 @@ const mainProcess = async () => {
     //     ],
     //   }
 
-    // const prueba = await unms.updateClient(13772, clientePrueba)
+    // const prueba = await unms.createClient(clientePrueba)
     // console.log(prueba);
 
     //const clientService = await unms.getClients(13772)
