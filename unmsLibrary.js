@@ -61,13 +61,16 @@ const getClients = async (id=null) => {
     }
     else{
         try {
-            const response = await fetch(url+pathClients+"/"+id,get);
+            const response = await fetch(url+pathClients+`/${id}`,get);
             return response.json();
         } catch (error) {
             console.log(error)
         }
     }
 };
+
+//REVISAR DESDE AQUI LAS PLANTILLAS LITERALES
+
 const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId
     switch(option){ 
         case null: {
@@ -76,12 +79,12 @@ const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId 
             break;
         }
         case 1: {
-            const response = await fetch(url+pathQuotes+"?clientId="+id, get);
+            const response = await fetch(url+pathQuotes+`?clientId=${id}`, get);
             return response.json();
             break;
         }
         case 2: {
-            const response = await fetch(url+pathQuotes+"/"+id, get);
+            const response = await fetch(url+pathQuotes+`/${id}`, get);
             return response.json();
             break;
         }
@@ -90,7 +93,7 @@ const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId 
             break;
         }
     }
-};
+}; 
 const getProducts = async () => {
     const response = await fetch(url+pathProducts, get)
     return response.json();
@@ -218,7 +221,7 @@ const removeTag = async (idClient, tagId) => {
         console.log("catch: \n" + error);
         return error;
     }
-}
+} 
 
 //DELETE
 const deleteClient = async (id) => {
