@@ -160,7 +160,7 @@ const getServicePlan = async () => { //Mejorar para ver los PeriodId
         return error;
     }
 
-}
+};
 const getServices = async () => { //Agregar busqueda por ID
 
     try{
@@ -171,7 +171,7 @@ const getServices = async () => { //Agregar busqueda por ID
         return error;
     }
 
-}
+};
 //Agregar funcion para ver los logs de los clientes, para manejar fechas y cambios en el CRM
 
 //POST
@@ -254,7 +254,7 @@ const updateClient = async (id, client) => {
         return error;
     }
 
-}
+};
 const addTag = async (idClient, tagId) => {
 
     try {
@@ -273,7 +273,7 @@ const addTag = async (idClient, tagId) => {
         return error;
     }
 
-}
+};
 const removeTag = async (idClient, tagId) => {
 
     try {
@@ -292,7 +292,7 @@ const removeTag = async (idClient, tagId) => {
         return error;
     }
 
-} 
+};
 
 //DELETE
 const deleteClient = async (id) => {
@@ -305,7 +305,7 @@ const deleteClient = async (id) => {
         return error;
     }
 
-}
+};
 // funciones Delete: quote, Ticket, Products, Service
 
 // EXPORTAMOS LOS MODULOS //
