@@ -110,19 +110,14 @@ const mainProcess = async () => {
         "taxable": false
     }
 
+    const clientQuote = await unms.createQuote(13768, quote);
+    console.log(clientQuote);
 
     // const products = await unms.createProduct(product);
     // console.log(products);
 
-    // const products = await unms.getProducts();
-    // console.log(products);
-
-    // const clientService = await unms.addService(13777, service)
+    // const clientService = await unms.addService(13768, service)
     // console.log(clientService);
-
-    // const plans = await unms.getServices();
-    // console.log(plans);
-
 
     // let clientePrueba = {
     //     userIdent: '1313',
@@ -159,14 +154,11 @@ const mainProcess = async () => {
     // const prueba = await unms.createClient(clientePrueba)
     // console.log(prueba);
 
-    const clientService = await unms.getClients(13777)
-    console.log(clientService);
-
-    //const update = await unms.addTag(13768, 1);
-    //console.log(update);
+    // const update = await unms.addTag(13768, 1);
+    // console.log(update);
   
-    //const update = await unms.removeTag(13768, 1);
-    //console.log(update);
+    // const update = await unms.removeTag(13768, 1);
+    // console.log(update);
 
 }; 
 mainProcess();

@@ -6,7 +6,7 @@ const url = "https://mi.intercomservicios.com/";//"https://192.168.0.8/";
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 
 //CONSTANT (PATHS)
-const pathClients = "crm/api/v1.0/clients";
+const pathClients = "crm/api/v1.0/clients"; //BORRAR "CRM"
 const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
@@ -71,34 +71,48 @@ const getClients = async (id=null) => {
 
 //REVISAR DESDE AQUI LAS PLANTILLAS LITERALES
 
-const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId
-    switch(option){ 
-        case null: {
-            const response = await fetch(url+pathQuotes, get);
-            return response.json();
-            break;
+const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId  //revisar
+    
+    try{
+        switch(option){ 
+            case null: {
+                const response = await fetch(url+pathQuotes, get);
+                return response.json();
+                break;
+            }
+            case 1: {
+                const response = await fetch(url+pathQuotes+`?clientId=${id}`, get);
+                return response.json();
+                break;
+            }
+            case 2: {
+                const response = await fetch(url+pathQuotes+`/${id}`, get);
+                return response.json();
+                break;
+            }
+            default: {
+                console.log("Opcion no valida");
+                break;
+            }
         }
-        case 1: {
-            const response = await fetch(url+pathQuotes+`?clientId=${id}`, get);
-            return response.json();
-            break;
-        }
-        case 2: {
-            const response = await fetch(url+pathQuotes+`/${id}`, get);
-            return response.json();
-            break;
-        }
-        default: {
-            console.log("Opcion no valida");
-            break;
-        }
+    } catch(error) {
+        console.log("catch: \n" + error);
+        return error;
     }
+
 }; 
-const getProducts = async () => {
-    const response = await fetch(url+pathProducts, get)
-    return response.json();
+const getProducts = async () => { //revisar
+
+    try{
+        const response = await fetch(url+pathProducts, get)
+        return response.json();
+    } catch(error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+    
 };
-const getTickets = async () => {
+const getTickets = async () => { //Agregar busqueda por ID
     const response = await fetch(url+pathTickets, get);
     return response.json();
 };
@@ -131,10 +145,10 @@ const createClient = async (client) => {
         return error;
     }
 };
-const createQuote = async (id, body) => {
+const createQuote = async (id, body) => { 
     try {
         post.body = JSON.stringify(body);
-        const response = await fetch(url+pathClients+"/"+id+"/quotes", post);
+        const response = await fetch(url+pathClients+`/${id}/quotes`, post);
         post.body = {};
         return response.status;
     } catch (error) {
@@ -164,10 +178,10 @@ const createProduct = async (body) => {
         return error;
     }
 };
-const addService = async (clientId, body) => { //COMPLETAR Y REVISAR
+const addService = async (clientId, body) => { //Corregir error que agrega mas de dos servicios
     try {
         post.body = JSON.stringify(body);
-        const response = await fetch(url+"api/v1.0/clients/"+clientId+"/services", post);
+        const response = await fetch(url+`api/v1.0/clients/${clientId}/services`, post);
         post.body = {};
         return response.status;
     } catch (error) {
@@ -190,7 +204,7 @@ const updateClient = async (id, client) => {
 }
 const addTag = async (idClient, tagId) => {
     try {
-        const response = await fetch(url+"api/v1.0/clients/"+idClient+"/add-tag/"+tagId, 
+        const response = await fetch(url+`api/v1.0/clients/${idClient}/add-tag/${tagId}`, 
             {
                 method: 'PATCH',
                 headers: {
@@ -199,7 +213,7 @@ const addTag = async (idClient, tagId) => {
                 }
             }
         );
-        return response;
+        return response.status;
     } catch (error) {
         console.log("catch: \n" + error);
         return error;
@@ -207,7 +221,7 @@ const addTag = async (idClient, tagId) => {
 }
 const removeTag = async (idClient, tagId) => {
     try {
-        const response = await fetch(url+"api/v1.0/clients/"+idClient+"/remove-tag/"+tagId, 
+        const response = await fetch(url+`api/v1.0/clients/${idClient}/remove-tag/${tagId}`, 
             {
                 method: 'PATCH',
                 headers: {
@@ -216,7 +230,7 @@ const removeTag = async (idClient, tagId) => {
                 }
             }
         );
-        return response;
+        return response.status;
     } catch (error) {
         console.log("catch: \n" + error);
         return error;
