@@ -6,7 +6,7 @@ const url = "https://mi.intercomservicios.com/";//"https://192.168.0.8/";
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 
 //CONSTANT (PATHS)
-const pathClients = "crm/api/v1.0/clients"; //BORRAR "CRM"
+const pathClients = "crm/api/v1.0/clients"; //BORRAR "CRM" (PRUEBA)
 const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
@@ -50,7 +50,7 @@ const del = {
 
 // FUNCTIONS //
 //GET
-const getClients = async (id=null) => {
+const getClients = async (id=null) => { //Separar funciones ALL and ONE "ID"
 
     if(id === null){
         try {
@@ -72,7 +72,7 @@ const getClients = async (id=null) => {
     }
 
 };
-const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId
+const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId   //Separar funciones Find-Client and FindId
     
     try{
         switch(option){ 
@@ -102,7 +102,7 @@ const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId 
     }
 
 }; 
-const getProducts = async () => {
+const getProducts = async () => { //Agregar funcion busqueda por ID
 
     try{
         const response = await fetch(url+pathProducts, get)
@@ -124,8 +124,8 @@ const getTickets = async () => { //Agregar busqueda por ID
     }
 
 };
-const getUserIdent = async (id) => {
-
+const getUserIdent = async (id) => { //Si no lleva ID, hacer return de un error
+    
     typeof(id) === "string" ? null : id = id.toString();
 
     try{
@@ -137,7 +137,7 @@ const getUserIdent = async (id) => {
     }
 
 };
-const getVtigerId = async (value) => {
+const getVtigerId = async (value) => { //Si no lleva ID, hacer return de un error
 
     typeof(value) === "string" ? null : value = value.toString();
 
@@ -161,7 +161,7 @@ const getServicePlan = async () => { //Mejorar para ver los PeriodId
     }
 
 }
-const getServices = async () => {
+const getServices = async () => { //Agregar busqueda por ID
 
     try{
         const response = await fetch(url+pathServices, get);
@@ -172,8 +172,7 @@ const getServices = async () => {
     }
 
 }
-
-//ADD CLIENTS LOGS
+//Agregar funcion para ver los logs de los clientes, para manejar fechas y cambios en el CRM
 
 //POST
 const createClient = async (client) => {
@@ -305,8 +304,9 @@ const deleteClient = async (id) => {
         console.log("catch: \n" + error);
         return error;
     }
-    
+
 }
+// funciones Delete: quote, Ticket, Products, Service
 
 // EXPORTAMOS LOS MODULOS //
 module.exports = {
