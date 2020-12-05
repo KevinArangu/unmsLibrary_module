@@ -69,9 +69,7 @@ const getClients = async (id=null) => {
     }
 };
 
-//REVISAR DESDE AQUI LAS PLANTILLAS LITERALES
-
-const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId  //revisar
+const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId
     
     try{
         switch(option){ 
@@ -91,7 +89,7 @@ const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId 
                 break;
             }
             default: {
-                console.log("Opcion no valida");
+                return "not valid option";
                 break;
             }
         }
@@ -101,7 +99,7 @@ const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId 
     }
 
 }; 
-const getProducts = async () => { //revisar
+const getProducts = async () => {
 
     try{
         const response = await fetch(url+pathProducts, get)

@@ -110,10 +110,10 @@ const mainProcess = async () => {
         "taxable": false
     }
 
-    const clientQuote = await unms.createQuote(13768, quote);
+    const clientQuote = await unms.getQuotes(3,53);
     console.log(clientQuote);
 
-    // const products = await unms.createProduct(product);
+    // const products = await unms.getProducts(product);
     // console.log(products);
 
     // const clientService = await unms.addService(13768, service)
