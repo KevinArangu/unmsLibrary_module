@@ -51,12 +51,14 @@ const del = {
 // FUNCTIONS //
 //GET
 const getClients = async (id=null) => {
+
     if(id === null){
         try {
             const response = await fetch(url+pathClients,get);
             return response.json();
         } catch (error) {
             console.log(error);
+            return error;
         }   
     }
     else{
@@ -64,11 +66,12 @@ const getClients = async (id=null) => {
             const response = await fetch(url+pathClients+`/${id}`,get);
             return response.json();
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            return error;
         }
     }
-};
 
+};
 const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId
     
     try{
@@ -111,28 +114,70 @@ const getProducts = async () => {
     
 };
 const getTickets = async () => { //Agregar busqueda por ID
-    const response = await fetch(url+pathTickets, get);
-    return response.json();
+
+    try{
+        const response = await fetch(url+pathTickets, get);
+        return response.json();
+    } catch(error){
+        console.log("catch: \n" + error);
+        return error;
+    }
+
 };
 const getUserIdent = async (id) => {
-   const response = await fetch(url+pathUserIdent+id, get);
-    return response.json();
+
+    typeof(id) === "string" ? null : id = id.toString();
+
+    try{
+        const response = await fetch(url+pathUserIdent+id, get);
+        return response.json();
+    } catch(error){
+        console.log("catch: \n" + error);
+        return error;
+    }
+
 };
 const getVtigerId = async (value) => {
-    const response = await fetch(url+pathVtigerValue+value, get);
-    return response.json();
+
+    typeof(value) === "string" ? null : value = value.toString();
+
+    try{
+        const response = await fetch(url+pathVtigerValue+value, get);
+        return response.json();
+    } catch(error){
+        console.log("catch: \n" + error);
+        return error;
+    }
+
 };
-const getServicePlan = async () => {
-    const response = await fetch(url+pathServicePlan, get);
-    return response.json();
+const getServicePlan = async () => { //Mejorar para ver los PeriodId
+
+    try{
+        const response = await fetch(url+pathServicePlan, get);
+        return response.json();
+    } catch(error){
+        console.log("catch: \n" + error);
+        return error;
+    }
+
 }
 const getServices = async () => {
-    const response = await fetch(url+pathServices, get);
-    return response.json();
+
+    try{
+        const response = await fetch(url+pathServices, get);
+        return response.json();
+    } catch(error){
+        console.log("catch: \n" + error);
+        return error;
+    }
+
 }
+
+//ADD CLIENTS LOGS
 
 //POST
 const createClient = async (client) => {
+
     try {
         post.body = JSON.stringify(client);
         const response = await fetch(url+pathClients, post);
@@ -142,8 +187,10 @@ const createClient = async (client) => {
         console.log("catch: \n" + error);
         return error;
     }
+
 };
 const createQuote = async (id, body) => { 
+
     try {
         post.body = JSON.stringify(body);
         const response = await fetch(url+pathClients+`/${id}/quotes`, post);
@@ -153,8 +200,10 @@ const createQuote = async (id, body) => {
         console.log("catch: \n" + error);
         return error;
     }
+
 };
 const createTicket = async (body) => {
+
     try {
         post.body = JSON.stringify(body);
         const response = await fetch(url+pathTickets, post);
@@ -164,8 +213,10 @@ const createTicket = async (body) => {
         console.log("catch: \n" + error);
         return error;
     }
+
 };
 const createProduct = async (body) => {
+
     try {
         post.body = JSON.stringify(body);
         const response = await fetch(url+pathProducts, post);
@@ -175,8 +226,10 @@ const createProduct = async (body) => {
         console.log("catch: \n" + error);
         return error;
     }
+
 };
-const addService = async (clientId, body) => { //Corregir error que agrega mas de dos servicios
+const addService = async (clientId, body) => { //Corregir error que agrega mas de dos servicios al cliente CRM
+
     try {
         post.body = JSON.stringify(body);
         const response = await fetch(url+`api/v1.0/clients/${clientId}/services`, post);
@@ -186,10 +239,12 @@ const addService = async (clientId, body) => { //Corregir error que agrega mas d
         console.log("catch: \n" + error);
         return error;
     }
+
 };
 
 //PATCH
 const updateClient = async (id, client) => {
+
     try {
         patch.body = JSON.stringify(client);
         const response = await fetch(url+PatchDeleteClient+id, patch);
@@ -199,8 +254,10 @@ const updateClient = async (id, client) => {
         console.log("catch: \n" + error);
         return error;
     }
+
 }
 const addTag = async (idClient, tagId) => {
+
     try {
         const response = await fetch(url+`api/v1.0/clients/${idClient}/add-tag/${tagId}`, 
             {
@@ -216,8 +273,10 @@ const addTag = async (idClient, tagId) => {
         console.log("catch: \n" + error);
         return error;
     }
+
 }
 const removeTag = async (idClient, tagId) => {
+
     try {
         const response = await fetch(url+`api/v1.0/clients/${idClient}/remove-tag/${tagId}`, 
             {
@@ -233,10 +292,12 @@ const removeTag = async (idClient, tagId) => {
         console.log("catch: \n" + error);
         return error;
     }
+
 } 
 
 //DELETE
 const deleteClient = async (id) => {
+
     try {
         const response = await fetch(url+PatchDeleteClient+id, del);
         return response.status;
@@ -244,6 +305,7 @@ const deleteClient = async (id) => {
         console.log("catch: \n" + error);
         return error;
     }
+    
 }
 
 // EXPORTAMOS LOS MODULOS //
