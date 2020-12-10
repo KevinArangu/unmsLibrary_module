@@ -2,7 +2,7 @@
 require('isomorphic-fetch');
 
 //FOR API CONECTION
-const url = "https://mi.intercomservicios.com/";//"https://192.168.0.8/";
+const url = "http://45.185.148.5/" //"https://mi.intercomservicios.com/";//"https://192.168.0.8/";
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 
 //CONSTANT (PATHS)
@@ -60,8 +60,7 @@ const getClients = async (id=null) => { //Separar funciones ALL and ONE "ID"
             console.log(error);
             return error;
         }   
-    }
-    else{
+    } else{
         try {
             const response = await fetch(url+pathClients+`/${id}`,get);
             return response.json();
@@ -309,7 +308,7 @@ const deleteClient = async (id) => {
 // funciones Delete: quote, Ticket, Products, Service
 
 // EXPORTAMOS LOS MODULOS //
-module.exports = {
+module.exports = { //ARREGLAR REDUNDANCIA EN LA EXPORTACION DE MODULOS
     getClients: getClients,
     getQuotes: getQuotes,
     getProducts: getProducts,
