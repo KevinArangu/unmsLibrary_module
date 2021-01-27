@@ -2,7 +2,7 @@
 require('isomorphic-fetch');
 
 //FOR API CONECTION
-const url = "https://mi.intercomservicios.com/";//"https://192.168.0.8/";//"http://45.185.148.5/"
+const url = "https://mi.intercomservicios.com/";//"https://172.16.127.130/";//"https://192.168.0.8/";//"http://45.185.148.5/"
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 
 //CONSTANT (PATHS)
