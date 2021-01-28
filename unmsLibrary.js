@@ -180,7 +180,14 @@ const createClient = async (client) => {
         post.body = JSON.stringify(client);
         const response = await fetch(url+pathClients, post);
         post.body = {};
-        return response.status;
+        const responseBody = await response.json()
+
+        return {
+            status: response.status,
+            unmsId: responseBody.id,
+            userId: responseBody.userIdent
+        }
+
     } catch (error) {
         console.log("catch: \n" + error);
         return error;

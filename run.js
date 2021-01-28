@@ -110,8 +110,11 @@ const mainProcess = async () => {
         "taxable": false
     }
 
-    const allclients = await unms.getClients();
+    const allclients = await unms.createClient(cliente);
     console.log(allclients);
+
+    // const allclients = await unms.getClients(25814979);
+    // console.log(allclients);
 
     // const clientQuote = await unms.getServicePlan()
     // console.log(clientQuote);
