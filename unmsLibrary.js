@@ -2,11 +2,11 @@
 require('isomorphic-fetch');
 
 //FOR API CONECTION
-const url = "https://mi.intercomservicios.com/";//"https://172.16.127.130/";//"https://192.168.0.8/";//"http://45.185.148.5/"
+const url = "https://mi.intercomservicios.com/";
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 
 //CONSTANT (PATHS)
-const pathClients = "crm/api/v1.0/clients"; //BORRAR "CRM" (PRUEBA)
+const pathClients = "api/v1.0/clients"; //BORRAR "CRM" (PRUEBA)
 const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
@@ -182,11 +182,16 @@ const createClient = async (client) => {
         post.body = {};
         const responseBody = await response.json()
 
-        return {
-            status: response.status,
+        return (response.status === 201) ? {
+            status: response.status, 
+            responseText: response.statusText, 
             unmsId: responseBody.id,
             userId: responseBody.userIdent
+        } : {
+            status: response.status, 
+            responseText: response.statusText, 
         }
+        
 
     } catch (error) {
         console.log("catch: \n" + error);
@@ -239,7 +244,20 @@ const addService = async (clientId, body) => { //Corregir error que agrega mas d
         post.body = JSON.stringify(body);
         const response = await fetch(url+`api/v1.0/clients/${clientId}/services`, post);
         post.body = {};
-        return response.status;
+        const responseBody = await response.json()
+
+        return (response.status===201) ? {
+                status: response.status, //RESPONSEBODY
+                responseText: response.statusText, //RESPONSEBODY
+                unmsId: responseBody.clientId,
+                servicePlanPeriodId: responseBody.servicePlanPeriodId,
+                servicePlanName: responseBody.name
+            }
+            : {
+                status: response.status, //RESPONSEBODY
+                responseText: response.statusText, //RESPONSEBODY
+            } ;
+
     } catch (error) {
         console.log("catch: \n" + error);
         return error;

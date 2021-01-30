@@ -4,9 +4,9 @@ const unms = require('./unmsLibrary');
 const mainProcess = async () => {
     
     let cliente = {
-        userIdent: '25814978',
+        userIdent: '25814979',
         previousIsp: "CANTV",
-        isLead: false,
+        isLead: true,
         clientType: 1,
         firstName: "Kevin",
         lastName: "Arangu",
@@ -28,11 +28,11 @@ const mainProcess = async () => {
         }],
         attributes: [
             {
-                customAttributeId: 14,
+                customAttributeId: 18,
                 value: '14',
             },
             {
-                customAttributeId: 15,
+                customAttributeId: 19,
                 value: 'Agente1',
             }
         ],
@@ -99,9 +99,6 @@ const mainProcess = async () => {
           }
         ]
     }
-    let service = {
-        "servicePlanPeriodId": 97,
-    }
     let product = {
         "name": "UTP cable",
         "invoiceLabel": "UTP cable",
@@ -109,62 +106,21 @@ const mainProcess = async () => {
         "unit": "m",
         "taxable": false
     }
+    let service = {
+        "servicePlanPeriodId": 97,
+    }
 
-    const allclients = await unms.createClient(cliente);
-    console.log(allclients);
+    // const clientService = await unms.addService(13924, service)
+    // console.log(clientService);
 
-    // const allclients = await unms.getClients(25814979);
+    // const getservice = await unms.getServicePlan()
+    // console.log(getservice[0]);
+
+    // const allclients = await unms.createClient(cliente);
     // console.log(allclients);
-
-    // const clientQuote = await unms.getServicePlan()
-    // console.log(clientQuote);
 
     // const products = await unms.getProducts(product);
     // console.log(products);
-
-    // const clientService = await unms.addService(13768, service)
-    // console.log(clientService);
-
-    // let clientePrueba = {
-    //     userIdent: '1313',
-    //     previousIsp: null,
-    //     isLead: false,
-    //     clientType: 1,
-    //     street1: null,
-    //     street2: null,
-    //     city: null,
-    //     zipCode: null,
-    //     fullAddress: null,
-    //     invoiceAddressSameAsContact: true,
-    //     note: null,
-    //     organizationId: 1,
-    //     firstName: 'Prueba',
-    //     lastName: 'Cliente',
-    //     contacts: [
-    //       {
-    //         email: null,
-    //         phone: null,
-    //         name: null,
-    //         isBilling: true,
-    //         isContact: true,
-    //       }
-    //     ],
-    //     attributes: [
-    //       {
-    //         customAttributeId: 14,
-    //         value: '1313',
-    //       }
-    //     ],
-    //   }
-
-    // const prueba = await unms.createClient(clientePrueba)
-    // console.log(prueba);
-
-    // const update = await unms.addTag(13768, 1);
-    // console.log(update);
-  
-    // const update = await unms.removeTag(13768, 1);
-    // console.log(update);
 
 }; 
 mainProcess();
