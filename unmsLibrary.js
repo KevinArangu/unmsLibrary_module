@@ -229,8 +229,6 @@ const getServices = async (id = null) => { //Agregar busqueda por ID
         }
     }
 
-    
-
 };
 const getClientService = async (clientId = null) => { //Agregar busqueda por ID
 
@@ -292,7 +290,6 @@ const createQuote = async (id, body) => {
             status: response.status,
             responseText: response.statusText
         }
-        return response.status;
     } catch (error) {
         console.log("catch: \n" + error);
         return error;
