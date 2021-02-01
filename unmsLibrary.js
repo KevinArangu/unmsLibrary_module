@@ -165,7 +165,7 @@ const getUserIdent = async (id=null) => {
     }
 
 };
-const getVtigerId = async (value=null) => { //Si no lleva ID, hacer return de un error
+const getVtigerId = async (value=null) => {
 
     if(value === null){
         try{
@@ -186,10 +186,9 @@ const getVtigerId = async (value=null) => { //Si no lleva ID, hacer return de un
         }
     }
 
-    
 
 };
-const getServicePlan = async () => { //Mejorar para ver los PeriodId
+const getServicePlan = async (id = null) => {
 
     if(id === null){
         try{
@@ -210,14 +209,47 @@ const getServicePlan = async () => { //Mejorar para ver los PeriodId
     }
 
 };
-const getServices = async () => { //Agregar busqueda por ID
+const getServices = async (id = null) => { //Agregar busqueda por ID
 
-    try{
-        const response = await fetch(url+pathServices, get);
-        return response.json();
-    } catch(error){
-        console.log("catch: \n" + error);
-        return error;
+    if(id === null){
+        try{
+            const response = await fetch(url+pathServices, get);
+            return response.json();
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
+    } else{
+        try {
+            const response = await fetch(url+pathServices+`/${id}`,get);
+            return response.json();
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    
+
+};
+const getClientService = async (clientId = null) => { //Agregar busqueda por ID
+
+    if(clientId === null){
+        try{
+            console.log("please enter an id");
+            return "please enter an id";
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
+    } else{
+        try{
+            const response = await fetch(url+pathServices+`?clientId=${clientId}`, get);
+            return response.json();
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
     }
 
 };
@@ -397,6 +429,7 @@ module.exports = { //ARREGLAR REDUNDANCIA EN LA EXPORTACION DE MODULOS
     getVtigerId: getVtigerId,
     getServicePlan: getServicePlan,
     getServices: getServices,
+    getClientService: getClientService,
     createClient: createClient,
     createQuote: createQuote,
     createTicket: createTicket,

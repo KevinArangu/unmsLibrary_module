@@ -110,7 +110,7 @@ const mainProcess = async () => {
         "servicePlanPeriodId": 97,
     }
 
-    const userident = await unms.getVtigerId();
+    const userident = await unms.getServices(139);
     console.log(userident);
 
 //Procedimiento Ticket
