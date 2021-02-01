@@ -1,4 +1,4 @@
-const { createClient, getClients, deleteClient, getServicePlan } = require('./unmsLibrary');
+const { createClient, getClients, deleteClient, getServicePlan, getProducts } = require('./unmsLibrary');
 const unms = require('./unmsLibrary');
 
 const mainProcess = async () => {
@@ -109,6 +109,56 @@ const mainProcess = async () => {
     let service = {
         "servicePlanPeriodId": 97,
     }
+
+    const userident = await unms.getVtigerId();
+    console.log(userident);
+
+//Procedimiento Ticket
+
+    // const tickets = await unms.getTickets(45);
+    // console.log((tickets.code === 404) ? "Ticket no encontrado" : tickets);
+
+// PROCEDIMIENTO PARA CREAR COTIZACION A UN CLIENTE
+
+    // const getproduct = await unms.getProducts(27)
+    // console.log(getproduct);
+
+    // const getproduct2 = await unms.getProducts(13)
+    // console.log(getproduct2);
+
+    // const getproduct3 = await unms.getProducts(29)
+    // console.log(getproduct3);
+
+    // let quoteClient = {
+    //     items: [
+    //         {
+    //             label: getproduct.invoiceLabel, 
+    //             price: getproduct.price, 
+    //             quantity:1
+    //         },
+    //         {
+    //             label: getproduct2.invoiceLabel, 
+    //             price: getproduct2.price, 
+    //             quantity:1
+    //         },
+    //         {
+    //             label: getproduct3.invoiceLabel, 
+    //             price: getproduct3.price, 
+    //             quantity:1
+    //         },
+    //     ],
+    //     organizationCity: "BARQUISIMETO",
+    //     organizationName: "Intercom Servicios",
+    //     organizationRegistrationNumber: "J40561447-1",
+    //     organizationZipCode: "3001",
+    //     quoteTemplateId: 1000,
+    // }
+    // const clientQuote = await unms.createQuote(13925, quoteClient)
+    // console.log(clientQuote);
+
+
+    // const getproduct = await unms.getProducts()
+    // console.log(getproduct);
 
     // const clientService = await unms.addService(13924, service)
     // console.log(clientService);

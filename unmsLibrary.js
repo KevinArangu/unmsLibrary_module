@@ -50,7 +50,7 @@ const del = {
 
 // FUNCTIONS //
 //GET
-const getClients = async (id=null) => { //Separar funciones ALL and ONE "ID"
+const getClients = async (id=null) => {
 
     if(id === null){
         try {
@@ -71,7 +71,7 @@ const getClients = async (id=null) => { //Separar funciones ALL and ONE "ID"
     }
 
 };
-const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId   //Separar funciones Find-Client and FindId
+const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId    2 - quoteId
     
     try{
         switch(option){ 
@@ -101,62 +101,112 @@ const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId 
     }
 
 }; 
-const getProducts = async () => { //Agregar funcion busqueda por ID
+const getProducts = async (id = null) => {
 
-    try{
-        const response = await fetch(url+pathProducts, get)
-        return response.json();
-    } catch(error) {
-        console.log("catch: \n" + error);
-        return error;
+    if(id === null){
+        try{
+            const response = await fetch(url+pathProducts, get)
+            return response.json();
+        } catch(error) {
+            console.log("catch: \n" + error);
+            return error;
+        }  
+    } else{
+        try {
+            const response = await fetch(url+pathProducts+`/${id}`,get);
+            return response.json();
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
     }
     
 };
-const getTickets = async () => { //Agregar busqueda por ID
+const getTickets = async (id = null ) => { 
 
-    try{
-        const response = await fetch(url+pathTickets, get);
-        return response.json();
-    } catch(error){
-        console.log("catch: \n" + error);
-        return error;
+    if(id === null){
+        try{
+            const response = await fetch(url+pathTickets, get);
+            return response.json();
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
+    } else{
+        try {
+            const response = await fetch(url+pathTickets+`/${id}`,get);
+            return response.json();
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
     }
 
 };
-const getUserIdent = async (id) => { //Si no lleva ID, hacer return de un error
+const getUserIdent = async (id=null) => { 
     
-    typeof(id) === "string" ? null : id = id.toString();
-
-    try{
-        const response = await fetch(url+pathUserIdent+id, get);
-        return response.json();
-    } catch(error){
-        console.log("catch: \n" + error);
-        return error;
+    if(id === null){
+        try{
+            console.log("please enter an id");
+            return "please enter an id";
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
+    } else{
+        typeof(id) === "string" ? null : id = id.toString();
+        try{
+            const response = await fetch(url+pathUserIdent+id, get);
+            return response.json();
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
     }
 
 };
-const getVtigerId = async (value) => { //Si no lleva ID, hacer return de un error
+const getVtigerId = async (value=null) => { //Si no lleva ID, hacer return de un error
 
-    typeof(value) === "string" ? null : value = value.toString();
-
-    try{
-        const response = await fetch(url+pathVtigerValue+value, get);
-        return response.json();
-    } catch(error){
-        console.log("catch: \n" + error);
-        return error;
+    if(value === null){
+        try{
+            console.log("please enter an id");
+            return "please enter an id";
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
+    } else{
+        typeof(value) === "string" ? null : value = value.toString();
+        try{
+            const response = await fetch(url+pathVtigerValue+value, get);
+            return response.json();
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
     }
+
+    
 
 };
 const getServicePlan = async () => { //Mejorar para ver los PeriodId
 
-    try{
-        const response = await fetch(url+pathServicePlan, get);
-        return response.json();
-    } catch(error){
-        console.log("catch: \n" + error);
-        return error;
+    if(id === null){
+        try{
+            const response = await fetch(url+pathServicePlan, get);
+            return response.json();
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
+    } else{
+        try {
+            const response = await fetch(url+pathServicePlan+`/${id}`,get);
+            return response.json();
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
     }
 
 };
@@ -205,6 +255,11 @@ const createQuote = async (id, body) => {
         post.body = JSON.stringify(body);
         const response = await fetch(url+pathClients+`/${id}/quotes`, post);
         post.body = {};
+        const responseBody = response.json()
+        return {
+            status: response.status,
+            responseText: response.statusText
+        }
         return response.status;
     } catch (error) {
         console.log("catch: \n" + error);
