@@ -6,7 +6,7 @@ const url = "https://mi.intercomservicios.com/";
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 
 //CONSTANT (PATHS)
-const pathClients = "api/v1.0/clients"; //BORRAR "CRM" (PRUEBA)
+const pathClients = "api/v1.0/clients";
 const pathQuotes = "crm/api/v1.0/quotes";
 const pathProducts = "api/v1.0/products";
 const pathTickets = "api/v1.0/ticketing/tickets";
@@ -49,6 +49,7 @@ const del = {
 };
 
 // FUNCTIONS //
+
 //GET
 const getClients = async (id=null) => {
 
@@ -209,7 +210,7 @@ const getServicePlan = async (id = null) => {
     }
 
 };
-const getServices = async (id = null) => { //Agregar busqueda por ID
+const getServices = async (id = null) => { 
 
     if(id === null){
         try{
@@ -230,7 +231,7 @@ const getServices = async (id = null) => { //Agregar busqueda por ID
     }
 
 };
-const getClientService = async (clientId = null) => { //Agregar busqueda por ID
+const getClientService = async (clientId = null) => { 
 
     if(clientId === null){
         try{
@@ -418,23 +419,7 @@ const deleteClient = async (id) => {
 
 // EXPORTAMOS LOS MODULOS //
 module.exports = { //ARREGLAR REDUNDANCIA EN LA EXPORTACION DE MODULOS
-    getClients: getClients,
-    getQuotes: getQuotes,
-    getProducts: getProducts,
-    getTickets: getTickets,
-    getUserIdent: getUserIdent,
-    getVtigerId: getVtigerId,
-    getServicePlan: getServicePlan,
-    getServices: getServices,
-    getClientService: getClientService,
-    createClient: createClient,
-    createQuote: createQuote,
-    createTicket: createTicket,
-    createProduct: createProduct,
-    addService: addService,
-    updateClient: updateClient,
-    addTag: addTag,
-    removeTag: removeTag,
-    deleteClient: deleteClient,
-    
+    getClients, getQuotes, getProducts, getTickets, getUserIdent, getVtigerId, getServicePlan, getServices, getClientService,
+    createClient, createQuote, createTicket, createProduct, addService, updateClient, addTag,
+    removeTag, deleteClient: deleteClient,
 };
