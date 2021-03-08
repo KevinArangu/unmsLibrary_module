@@ -15,6 +15,7 @@ const pathServicePlan = "api/v1.0/service-plans"
 const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
 const pathServices = "api/v1.0/clients/services";
 const PatchDeleteClient = "api/v1.0/clients/";
+const pathInvoices = "crm/api/v1.0/invoices";
 
 //METHODS
 const get = {
@@ -101,7 +102,26 @@ const getQuotes = async (option = null, id = null) => { //OPTIONS: 1 - clientId 
         return error;
     }
 
-}; 
+};
+const getInvoices = async (id=null) => {
+    if(id === null){
+        try {
+            const response = await fetch(url+pathInvoices,get);
+            return response.json();
+        } catch (error) {
+            console.log(error);
+            return error;
+        }   
+    } else{
+        try {
+            const response = await fetch(url+pathInvoices+`?clientId=${id}`,get);
+            return response.json();
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+} 
 const getProducts = async (id = null) => {
 
     if(id === null){
@@ -421,5 +441,5 @@ const deleteClient = async (id) => {
 module.exports = { //ARREGLAR REDUNDANCIA EN LA EXPORTACION DE MODULOS
     getClients, getQuotes, getProducts, getTickets, getUserIdent, getVtigerId, getServicePlan, getServices, getClientService,
     createClient, createQuote, createTicket, createProduct, addService, updateClient, addTag,
-    removeTag, deleteClient: deleteClient,
+    removeTag, deleteClient, getInvoices,
 };
