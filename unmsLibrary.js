@@ -121,7 +121,19 @@ const getInvoices = async (id=null) => {
             return error;
         }
     }
-} 
+}
+const getInvoiceStatus = async (status=0) => {
+
+    try {
+        const response = await fetch(url+pathInvoices+`?statuses=%5B1%5D`,get); 
+        return response.json();
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+
+}
+
 const getProducts = async (id = null) => {
 
     if(id === null){
@@ -441,5 +453,5 @@ const deleteClient = async (id) => {
 module.exports = { //ARREGLAR REDUNDANCIA EN LA EXPORTACION DE MODULOS
     getClients, getQuotes, getProducts, getTickets, getUserIdent, getVtigerId, getServicePlan, getServices, getClientService,
     createClient, createQuote, createTicket, createProduct, addService, updateClient, addTag,
-    removeTag, deleteClient, getInvoices,
+    removeTag, deleteClient, getInvoices, getInvoiceStatus,
 };
