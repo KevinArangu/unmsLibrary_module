@@ -1,21 +1,23 @@
 //Libreria desarrollada por: Kevin Arangu
 require('isomorphic-fetch');
+const dateformat = require('dateformat');
 
 //FOR API CONECTION
 const url = "https://mi.intercomservicios.com/";
 const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
 
 //CONSTANT (PATHS)
-const pathClients = "api/v1.0/clients";
-const pathQuotes = "crm/api/v1.0/quotes";
-const pathProducts = "api/v1.0/products";
-const pathTickets = "api/v1.0/ticketing/tickets";
-const pathUserIdent = "api/v1.0/clients?userIdent=";
-const pathServicePlan = "api/v1.0/service-plans"
-const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue=";
-const pathServices = "api/v1.0/clients/services";
-const PatchDeleteClient = "api/v1.0/clients/";
-const pathInvoices = "crm/api/v1.0/invoices";
+const pathClients = "api/v1.0/clients"; // busqueda por cliente UISP
+const pathQuotes = "crm/api/v1.0/quotes"; // cotizaciones
+const pathProducts = "api/v1.0/products"; // producto
+const pathTickets = "api/v1.0/ticketing/tickets"; // ticket
+const pathUserIdent = "api/v1.0/clients?userIdent="; // busqueda por cedula
+const pathServicePlan = "api/v1.0/service-plans" // Planes UISP
+const pathVtigerValue = "api/v1.0/clients?customAttributeKey=idvtiger&customAttributeValue="; // busqueda campo personalizado vtiger
+const pathServices = "api/v1.0/clients/services";  // Servicios UISP
+const PatchDeleteClient = "api/v1.0/clients/"; // Borrar Cliente
+const pathInvoices = "crm/api/v1.0/invoices"; // Facturas
+const pathPayments = "crm/api/v1.0/payments"; // Facturas
 
 //METHODS
 const get = {
@@ -57,7 +59,8 @@ const getClients = async (id=null) => {
     if(id === null){
         try {
             const response = await fetch(url+pathClients,get);
-            return response.json();
+            const returnValue = await response.json();
+            return returnValue;
         } catch (error) {
             console.log(error);
             return error;
@@ -132,6 +135,56 @@ const getInvoiceStatus = async (status=0) => {
         return error;
     }
 
+}
+
+const getInvoiceGenerate = async (status=null, mydatefrom=Date.now(), mydateto=null, overdue=null) => {
+    try {
+        let myurl = url+pathInvoices+`?createdDateFrom=`+dateformat(mydatefrom, "yyyy-mm-dd");
+        myurl+=(mydateto != null) ? `&createdDateTo=`+dateformat(mydateto,"yyyy-mm-dd") : "";
+        myurl+=(overdue != null) ? `&overdue=1` : "";
+        if (status != null) {
+            const cant_status = Object.getOwnPropertyNames(status).length-1;
+            if (cant_status > 1) {
+                for(let pos = 0; pos < cant_status; pos++) {
+                    myurl+=`&statuses[`+pos+`]=`+status[pos];
+                }
+            } else {
+                myurl+=(status != -1) ? `&statuses[]=`+status : "";
+            }
+        } else {
+            myurl+=(status != -1) ? `&statuses[]=`+status : "";
+        }
+        
+        const response = await fetch(myurl,get);
+        return response.json();
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+const getPaymentsGenerate = async (mydatefrom=Date.now(), mydateto=null, clientid=null) => {
+    try {
+        let myurl = url+pathPayments+`?createdDateFrom=`+dateformat(mydatefrom, "yyyy-mm-dd");
+        myurl+=(mydateto != null) ? `&createdDateTo=`+dateformat(mydateto,"yyyy-mm-dd") : "";
+        myurl+=(clientid != null && clientid != -1) ? `&clientId=`+clientid : "";
+        const response = await fetch(myurl,get);
+        return response.json();
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+const getPaymentsIndividualGenerate = async (paymentsId) => {
+    try {
+        let myurl = url+pathPayments+`/`+paymentsId;
+        const response = await fetch(myurl,get);
+        return response.json();
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
 }
 
 const getProducts = async (id = null) => {
@@ -284,6 +337,20 @@ const getClientService = async (clientId = null) => {
     }
 
 };
+
+const getDate = async (value=null) => {
+
+    typeof(value) === "string" ? null : value = value.toString();
+        try{
+            const response = await fetch(url+pathVtigerValue+value, get);
+            return response.json();
+        } catch(error){
+            console.log("catch: \n" + error);
+            return error;
+        }
+
+};
+
 //Agregar funcion para ver los logs de los clientes, para manejar fechas y cambios en el CRM
 
 //POST
@@ -435,6 +502,27 @@ const removeTag = async (idClient, tagId) => {
 
 };
 
+const updateInvoice = async(idInvoice, bodyjson) => {
+    try {
+        const myurl = url+`crm/api/v1.0/invoices/${idInvoice}`;
+        const response = await fetch(myurl, 
+        {
+            method: 'PATCH',
+            headers: {
+                'Content-Type':'application/json',
+                'x-auth-token': apiToken
+            },
+            body: bodyjson
+        }
+    );
+    return response.status;
+    }
+    catch (error) {
+        console.log("catch: \n" + error);
+        return error;
+    }
+}
+
 //DELETE
 const deleteClient = async (id) => {
 
@@ -449,9 +537,60 @@ const deleteClient = async (id) => {
 };
 // funciones Delete: quote, Ticket, Products, Service
 
+//SMS PUBLIC FUNCTION
+const getInfoSms = async () => {
+    const filteredInvoices = await filterInvoices();
+    const clientsInfo = await getPhoneNumber(filteredInvoices);
+    return clientsInfo;
+}
+//PRIVATE FUNCTIONS
+const filterInvoices = async (invoiceStatus=1) => {
+
+    try {
+        const allInvoices = await getInvoices();
+        const filteredInvoices = allInvoices.filter((item) => {
+            const invoice = (item.status === invoiceStatus)? true : false;
+            return invoice;
+        });
+        return filteredInvoices;
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+const getPhoneNumber = (invoicesArray={}) => {
+    
+    try {
+        const clientNumber = Promise.all( invoicesArray.map(async (item)=>{
+            const client = await getClients(item.clientId);
+            // return  client;
+            return {
+                idInvoice: item.id,
+                clientId: item.clientId,
+                total: item.total,
+                amountPaid: item.amountPaid,
+                amountToPay: item.amountToPay,
+                status: item.status,
+                createdDate: item.createdDate,
+                dueDate: item.dueDate,
+                phone: client.contacts[0].phone,
+                firstName: client.firstName,
+                lastName: client.lastName,
+                attributes: client.attributes,
+            }
+        }) );
+        return clientNumber;
+        
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
 // EXPORTAMOS LOS MODULOS //
 module.exports = { //ARREGLAR REDUNDANCIA EN LA EXPORTACION DE MODULOS
     getClients, getQuotes, getProducts, getTickets, getUserIdent, getVtigerId, getServicePlan, getServices, getClientService,
     createClient, createQuote, createTicket, createProduct, addService, updateClient, addTag,
-    removeTag, deleteClient, getInvoices, getInvoiceStatus,
+    removeTag, deleteClient, getInvoices, getInvoiceStatus, getInfoSms, 
+    getInvoiceGenerate, updateInvoice, getPaymentsGenerate, getPaymentsIndividualGenerate
 };
