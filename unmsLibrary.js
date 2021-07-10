@@ -1,10 +1,11 @@
 //Libreria desarrollada por: Kevin Arangu
 require('isomorphic-fetch');
 const dateformat = require('dateformat');
+const config = require('../config');
 
 //FOR API CONECTION
-const url = "https://mi.intercomservicios.com/";
-const apiToken = "85ccde42-3fcc-431c-b8e4-e4cb0de056a8";
+const url = config.UISP_URL;
+const apiToken = config.UISP_API;
 
 //CONSTANT (PATHS)
 const pathClients = "api/v1.0/clients"; // busqueda por cliente UISP
